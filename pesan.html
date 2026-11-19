@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan - Bouquets by Leyaa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Bouquets by Leyaa</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="katalog.html">Katalog</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+                <li><a href="sosmed.html">Sosial Media</a></li>
+                <li><a href="pesan.html" class="active">Pesan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Formulir Pemesanan Buket</h2>
+        <p style="text-align: center; max-width: 620px; margin: -18px auto 32px; color: #555;">
+            Lengkapi detail buket impianmu di bawah ini dan lihat langsung tampilan kartu ucapanmu di panel sebelah kanan.
+        </p>
+
+        <div class="order-layout">
+            
+            <!-- Kolom Kiri: Formulir -->
+            <div class="form-box-modern">
+                <div id="notif-sukses" class="notif-box-modern">
+                    <strong>Pesanan Berhasil Dikirim!</strong><br>
+                    Terima kasih telah mengisi formulir pemesanan di <strong>Bouquets by Leyaa</strong>. Tim kami siap merangkai momen spesialmu.
+                </div>
+
+                <form id="form-pemesanan" onsubmit="kirimForm(event)" onreset="resetPreview()">
+                    
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="nama">Nama Pemesan</label>
+                            <input type="text" id="nama" name="nama" placeholder="Nama lengkap Anda" oninput="updateRingkasan()" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp">Nomor WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="081234567890" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="produk">Pilih Jenis Buket</label>
+                            <select id="produk" name="produk" onchange="updateRingkasan()" required>
+                                <option value="" data-harga="0">-- Pilih Katalog Buket --</option>
+                                <option value="Satin Bouquet" data-harga="185000">Satin Bouquet (Rp 185.000)</option>
+                                <option value="Thumbelina Bouquet" data-harga="150000">Thumbelina Bouquet (Rp 150.000)</option>
+                                <option value="Round Bouquet" data-harga="135000">Round Bouquet (Rp 135.000)</option>
+                                <option value="Classic Bouquet" data-harga="250000">Classic Bouquet (Rp 250.000)</option>
+                                <option value="Money Bouquet" data-harga="110000">Money Bouquet (Jasa Rp 110.000)</option>
+                                <option value="Snack Bouquet" data-harga="85000">Snack Bouquet (Rp 85.000)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal Acara / Pengambilan</label>
+                            <input type="date" id="tanggal" name="tanggal" onchange="updateRingkasan()" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pilih Warna Kertas Wrapping</label>
+                        <div class="color-options">
+                            <input type="radio" name="warna" id="w-pink" value="Pink Pastel" class="color-radio" checked onchange="updateRingkasan()">
+                            <label for="w-pink" class="color-label"><span class="color-dot" style="background: #f4b8c8;"></span>Pink Pastel</label>
+
+                            <input type="radio" name="warna" id="w-hitam" value="Hitam & Gold" class="color-radio" onchange="updateRingkasan()">
+                            <label for="w-hitam" class="color-label"><span class="color-dot" style="background: #2b2b2b;"></span>Hitam & Gold</label>
+
+                            <input type="radio" name="warna" id="w-putih" value="Putih Susu" class="color-radio" onchange="updateRingkasan()">
+                            <label for="w-putih" class="color-label"><span class="color-dot" style="background: #fcfaf7;"></span>Putih Susu</label>
+
+                            <input type="radio" name="warna" id="w-lilac" value="Lilac" class="color-radio" onchange="updateRingkasan()">
+                            <label for="w-lilac" class="color-label"><span class="color-dot" style="background: #c8b6ff;"></span>Lilac</label>
+
+                            <input type="radio" name="warna" id="w-kraft" value="Cokelat Kraft" class="color-radio" onchange="updateRingkasan()">
+                            <label for="w-kraft" class="color-label"><span class="color-dot" style="background: #c19a6b;"></span>Cokelat Kraft</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ucapan">Isi Kartu Ucapan (Gratis)</label>
+                        <textarea id="ucapan" name="ucapan" rows="3" placeholder="Contoh: Happy Graduation! Semoga sukses selalu ke depannya..." oninput="updateUcapan()"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="metode">Metode Pengambilan</label>
+                        <select id="metode" name="metode" onchange="toggleAlamat()">
+                            <option value="Ambil di Studio">Ambil Langsung di Studio</option>
+                            <option value="Kirim ke Alamat">Kirim Kurir ke Alamat Tujuan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="grup-alamat" style="display: none;">
+                        <label for="alamat">Alamat Lengkap Pengiriman</label>
+                        <textarea id="alamat" name="alamat" rows="2" placeholder="Masukkan jalan, nomor rumah, kecamatan, dan patokan..."></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 24px;">
+                        <button type="submit" class="btn" style="flex: 2;">Kirim Pesanan</button>
+                        <button type="reset" class="btn" style="flex: 1; background-color: #9e9e9e;">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Kolom Kanan: Ringkasan & Live Preview Kartu Ucapan -->
+            <div class="summary-panel">
+                <h3 class="summary-title">Ringkasan Pesanan</h3>
+                
+                <div class="summary-row">
+                    <span>Pemesan</span>
+                    <strong id="prev-nama">-</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Jenis Buket</span>
+                    <strong id="prev-produk">Belum dipilih</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Warna Wrapping</span>
+                    <strong id="prev-warna">Pink Pastel</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Tanggal</span>
+                    <strong id="prev-tanggal">-</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Pengambilan</span>
+                    <strong id="prev-metode">Ambil di Studio</strong>
+                </div>
+
+                <div class="summary-total">
+                    <span>Estimasi Harga</span>
+                    <span id="prev-harga">Rp 0</span>
+                </div>
+
+                <!-- Live Preview Kartu Ucapan -->
+                <div class="greeting-card-preview">
+                    <small>Preview Kartu Ucapan</small>
+                    <div class="greeting-text-display" id="prev-ucapan">
+                        "Tuliskan pesan spesialmu di kolom kartu ucapan..."
+                    </div>
+                    <div class="greeting-brand">&mdash; Bouquets by Leyaa &mdash;</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Bouquets by Leyaa</p>
+    </footer>
+
+    <script>
+        function formatRupiah(angka) {
+            return "Rp " + Number(angka).toLocaleString("id-ID");
+        }
+
+        function updateRingkasan() {
+            const nama = document.getElementById("nama").value.trim();
+            document.getElementById("prev-nama").innerText = nama !== "" ? nama : "-";
+
+            const selectProduk = document.getElementById("produk");
+            const opsiTerpilih = selectProduk.options[selectProduk.selectedIndex];
+            const namaProduk = opsiTerpilih.value;
+            const harga = opsiTerpilih.getAttribute("data-harga") || 0;
+
+            document.getElementById("prev-produk").innerText = namaProduk !== "" ? namaProduk : "Belum dipilih";
+            document.getElementById("prev-harga").innerText = formatRupiah(harga);
+
+            const warnaTerpilih = document.querySelector('input[name="warna"]:checked');
+            document.getElementById("prev-warna").innerText = warnaTerpilih ? warnaTerpilih.value : "Pink Pastel";
+
+            const tanggal = document.getElementById("tanggal").value;
+            document.getElementById("prev-tanggal").innerText = tanggal !== "" ? tanggal : "-";
+
+            const metode = document.getElementById("metode").value;
+            document.getElementById("prev-metode").innerText = metode;
+        }
+
+        function updateUcapan() {
+            const teks = document.getElementById("ucapan").value.trim();
+            document.getElementById("prev-ucapan").innerText = teks !== "" 
+                ? '"' + teks + '"' 
+                : '"Tuliskan pesan spesialmu di kolom kartu ucapan..."';
+        }
+
+        function toggleAlamat() {
+            const metode = document.getElementById("metode").value;
+            const grupAlamat = document.getElementById("grup-alamat");
+            grupAlamat.style.display = (metode === "Kirim ke Alamat") ? "block" : "none";
+            updateRingkasan();
+        }
+
+        function resetPreview() {
+            setTimeout(() => {
+                document.getElementById("grup-alamat").style.display = "none";
+                updateRingkasan();
+                updateUcapan();
+            }, 10);
+        }
+
+        function kirimForm(event) {
+            event.preventDefault();
+            document.getElementById("notif-sukses").style.display = "block";
+            document.getElementById("form-pemesanan").reset();
+            resetPreview();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    </script>
+
+</body>
+</html>
